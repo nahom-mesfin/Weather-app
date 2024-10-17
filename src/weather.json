@@ -1,0 +1,37 @@
+{
+  "coord": { "lon": 38.7525, "lat": 9.0192 },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "broken clouds",
+      "icon": "04n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 289.93,
+    "feels_like": 289.31,
+    "temp_min": 289.93,
+    "temp_max": 289.93,
+    "pressure": 1018,
+    "humidity": 63,
+    "sea_level": 1018,
+    "grnd_level": 774
+  },
+  "visibility": 10000,
+  "wind": { "speed": 4.12, "deg": 60 },
+  "clouds": { "all": 75 },
+  "dt": 1729198164,
+  "sys": {
+    "type": 1,
+    "id": 2453,
+    "country": "ET",
+    "sunrise": 1729134763,
+    "sunset": 1729177652
+  },
+  "timezone": 10800,
+  "id": 344979,
+  "name": "Addis Ababa",
+  "cod": 200
+}
