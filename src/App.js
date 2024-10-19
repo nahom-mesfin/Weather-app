@@ -8,23 +8,24 @@ function App() {
     <div className="app">
       <div className="container">
         <div className="top">
-          <div className="location">
-            <p>
-              <h1>Dallas</h1>
-            </p>
-          </div>
+          <div className="location">Dallas</div>
           <div className="temp">
-            <h1> 65° F</h1>
+            <h1> 60° F </h1>
           </div>
           <div className="description">Clouds</div>
-          <div className="bottom">
-            <div className="feels">
-              <p>65° F</p>
-            </div>
-            <div className="himuduty">
-              <p>20%</p>
-            </div>
-            <div className="wind">12 MPH</div>
+        </div>
+        <div className="bottom">
+          <div className="feels">
+            <p className="bold">65° F </p>
+            <p>feels like</p>
+          </div>
+          <div className="humiduty">
+            <p className="bold">20%</p>
+            <p>himudity</p>
+          </div>
+          <div className="wind">
+            <p className="bold">12 MPH</p>
+            <p>himudity</p>
           </div>
         </div>
       </div>
