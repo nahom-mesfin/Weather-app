@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useState } from "react";
 
 function App() {
-  //const url = "https://api.openweathermap.org/data/2.5/weather?lat=9.0192&lon=38.7525&appid=06aa447f4c130cdeaa572a966e9fd761";
+  const [data, setData] = useState({});
+  const [location, setLocation] = useState("");
+  const url =
+    "https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=06aa447f4c130cdeaa572a966e9fd761";
 
   return (
     <div className="app">
