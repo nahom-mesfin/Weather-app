@@ -4,13 +4,28 @@ import React, { useState } from "react";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=06aa447f4c130cdeaa572a966e9fd761`;
+  const [error, setError] = useState(false); // Track if location is not found
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=06aa447f4c130cdeaa572a966e9fd761`;
+
   const searchLocation = (event) => {
     if (event.key === "Enter") {
-      axios.get(url).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
+      if (location === "") {
+        setError(true); // Handle empty location input
+        setData({});
+      } else {
+        axios
+          .get(url)
+          .then((response) => {
+            setData(response.data);
+            setError(false); // Reset error if the location is found
+            console.log(response.data);
+          })
+          .catch((err) => {
+            setError(true); // Set error to true if location not found
+            setData({});
+          });
+      }
       setLocation("");
     }
   };
@@ -26,37 +41,55 @@ function App() {
           type="text"
         />
       </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p>{data.name}</p>
-          </div>
-          <div className="temp">
+
+      {error ? (
+        <p className="error-message">Location Not Found</p>
+      ) : (
+        <div className="container">
+          <div className="top">
+            <div className="location">
+              <p>{data.name}</p>
+            </div>
+
             <div className="temp">
               <h1>
-                {data.main && data.main.temp ? `${data.main.temp} °K` : null}
+                {data.main && data.main.temp
+                  ? `${data.main.temp.toFixed()} °C`
+                  : null}
               </h1>
             </div>
+
+            <div className="description">
+              {data.weather && data.weather[0] ? (
+                <p>{data.weather[0].main}</p>
+              ) : null}
+            </div>
           </div>
-          <div className="description">
-            {data.weather ? <p>{data.weather[0].main}</p> : null}
+
+          <div className="bottom">
+            <div className="feels">
+              {data.main && data.main.feels_like ? (
+                <p className="bold">{data.main.feels_like.toFixed()} °C</p>
+              ) : null}
+              <p>Feels like</p>
+            </div>
+
+            <div className="humidity">
+              {data.main && data.main.humidity ? (
+                <p className="bold">{data.main.humidity} %</p>
+              ) : null}
+              <p>Humidity</p>
+            </div>
+
+            <div className="wind">
+              {data.wind && data.wind.speed ? (
+                <p className="bold">{data.wind.speed.toFixed()} MPH</p>
+              ) : null}
+              <p>Wind</p>
+            </div>
           </div>
         </div>
-        <div className="bottom">
-          <div className="feels">
-            <p className="bold">65° F </p>
-            <p>feels like</p>
-          </div>
-          <div className="humiduty">
-            <p className="bold">20%</p>
-            <p>himudity</p>
-          </div>
-          <div className="wind">
-            <p className="bold">12 MPH</p>
-            <p>himudity</p>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
