@@ -4,14 +4,14 @@ import React, { useState } from "react";
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState("");
-  const url =
-    "https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=06aa447f4c130cdeaa572a966e9fd761";
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=06aa447f4c130cdeaa572a966e9fd761`;
   const searchLocation = (event) => {
     if (event.key === "Enter") {
       axios.get(url).then((response) => {
         setData(response.data);
         console.log(response.data);
       });
+      setLocation("");
     }
   };
 
@@ -28,11 +28,19 @@ function App() {
       </div>
       <div className="container">
         <div className="top">
-          <div className="location">Dallas</div>
-          <div className="temp">
-            <h1> 60° F </h1>
+          <div className="location">
+            <p>{data.name}</p>
           </div>
-          <div className="description">Clouds</div>
+          <div className="temp">
+            <div className="temp">
+              <h1>
+                {data.main && data.main.temp ? `${data.main.temp} °K` : null}
+              </h1>
+            </div>
+          </div>
+          <div className="description">
+            {data.weather ? <p>{data.weather[0].main}</p> : null}
+          </div>
         </div>
         <div className="bottom">
           <div className="feels">
